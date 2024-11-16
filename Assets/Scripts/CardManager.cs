@@ -15,6 +15,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private List<GameObject> cardsList;
     [SerializeField] private List<GameObject> newGroupList;
     
+    [SerializeField] private GameObject previousCard , nextCard;
 
     public CardView selectedCard;
 
@@ -42,21 +43,20 @@ public class CardManager : MonoBehaviour
         int nextCardIndex = Mathf.Clamp(_currentGlobalMovingIndex +1, 0, cardsList.Count-1);
         int previousCardIndex = Mathf.Clamp(_currentGlobalMovingIndex - 1, 0, cardsList.Count - 1);   
         
-        GameObject nextCard = cardsList[nextCardIndex];
-        GameObject previousCard = cardsList[previousCardIndex];
-        
+         nextCard = cardsList[nextCardIndex];
+         previousCard = cardsList[previousCardIndex];
+         
         if (selectedCard.transform.position.x > nextCard.transform.position.x)
         {
             _currentGlobalMovingIndex += 1;
         }
-    
+        
         if (selectedCard.transform.position.x  < previousCard.transform.position.x)
         {
             _currentGlobalMovingIndex -= 1;
         }
     
         _currentGlobalMovingIndex = Mathf.Clamp(_currentGlobalMovingIndex, 0, cardsList.Count - 1);
-        
         Debug.Log(_currentGlobalMovingIndex);
     }
     
@@ -90,7 +90,7 @@ public class CardManager : MonoBehaviour
     
     private void Start()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 5; i++)
         {
             SpawnCard(_k);
             _k++;

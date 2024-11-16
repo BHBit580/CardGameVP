@@ -22,10 +22,8 @@ public class CardGiver : MonoBehaviour
 
     void Start()
     {
-        // Parse JSON data from the textJson file
         CardData cardList = JsonUtility.FromJson<CardData>(textJson.text);
-
-        // Print each card in the deck to confirm it loaded
+        
         foreach (string card in cardList.data.deck)
         {
             cardsList.Add(card);
