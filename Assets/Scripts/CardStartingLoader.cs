@@ -35,15 +35,12 @@ public class CardStartingLoader : MonoBehaviour
 
     private void LoadCards()
     {
-        int i = 0;
         foreach (string cardName in cardsList)
         {
             GameObject cardObject = Instantiate(cardPrefab, initialGroup.transform);
             CardManager.Instance.cardsList.Add(cardObject);
             Sprite cardSprite = FindCardSprite(cardName);
             cardObject.GetComponent<CardView>().SetImage(cardSprite);
-            cardObject.GetComponent<CardView>().globalIndex = i;
-            i++;
         }
     }
 

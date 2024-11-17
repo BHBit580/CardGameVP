@@ -16,25 +16,24 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
 
     public List<GameObject> cardsList;
     public CardView selectedCard;
-
     
-    private int _currentGlobalMovingIndex;
+    
+    private GameObject _closestGameObject;
     
     
     public void SetSelectedCard(CardView card)
     {
         selectedCard = card;
         selectedCard.transform.SetParent(canvas.transform);
-        _currentGlobalMovingIndex = selectedCard.globalIndex;
     }
     
-    private void UpdateCurrentMovingIndex()
+    private void FindClosestGameObject()
     {
         //This method finds the closest card near our selected card 
         if (selectedCard == null || cardsList.Count == 0) return;
 
         float closestDistance = float.MaxValue;
-        int closestIndex = _currentGlobalMovingIndex;
+        
 
         for (int i = 0; i < cardsList.Count; i++)
         {
@@ -44,47 +43,35 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
             if (distance < closestDistance)
             {
                 closestDistance = distance;
-                closestIndex = i;
+                _closestGameObject = cardsList[i];
             }
         }
-
-        _currentGlobalMovingIndex = closestIndex;
-        Debug.Log(_currentGlobalMovingIndex);
     }
 
     
     public void ReleaseCard()
     {
-        GameObject card = cardsList[_currentGlobalMovingIndex];
-        int siblingIndex = card.transform.GetSiblingIndex();
-
-        if (siblingIndex != card.transform.parent.childCount-1)
+        if (_closestGameObject.transform.GetSiblingIndex() == _closestGameObject.transform.parent.childCount - 1)
         {
-            //If it's not a last index child
-            selectedCard.transform.SetSiblingIndex(siblingIndex);
+            //It's means closes gameobject is at last index
+            selectedCard.transform.SetParent(_closestGameObject.transform.parent);
         }
-       
-        selectedCard.transform.SetParent(card.transform.parent);
-        UpdateListGlobalIndex();
+        else
+        {
+            selectedCard.transform.SetParent(_closestGameObject.transform.parent);
+            selectedCard.transform.SetSiblingIndex(_closestGameObject.transform.GetSiblingIndex());
+        }
+        
         selectedCard = null;
     }
 
     public void MoveCard(float xPos)
     {
         if(selectedCard != null) selectedCard.transform.position = new Vector2(xPos, selectedCard.transform.position.y);
-        if(selectedCard !=null) UpdateCurrentMovingIndex();
+        if(selectedCard !=null) FindClosestGameObject();
     }
     
-    private void UpdateListGlobalIndex()
-    {
-        cardsList.Remove(selectedCard.gameObject);
-        cardsList.Insert(_currentGlobalMovingIndex , selectedCard.gameObject);
-       
-        for (int i = 0; i < cardsList.Count; i++)
-        {
-            cardsList[i].GetComponent<CardView>().globalIndex = i;
-        }
-    }
+    
     
     /*
     private void Start()
