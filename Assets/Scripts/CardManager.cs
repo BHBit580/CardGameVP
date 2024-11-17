@@ -12,11 +12,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] private List<Sprite> cardSprites;
     [SerializeField] private GameObject cardHolder, cardPrefab, canvas;
 
-    [SerializeField] private List<GameObject> cardsList;
+    public List<GameObject> cardsList;
     [SerializeField] private List<GameObject> newGroupList;
     
-    [SerializeField] private GameObject previousCard , nextCard;
-
     public CardView selectedCard;
 
     
@@ -40,25 +38,26 @@ public class CardManager : MonoBehaviour
     
     private void UpdateCurrentMovingIndex()
     {
-        int nextCardIndex = Mathf.Clamp(_currentGlobalMovingIndex +1, 0, cardsList.Count-1);
-        int previousCardIndex = Mathf.Clamp(_currentGlobalMovingIndex - 1, 0, cardsList.Count - 1);   
-        
-         nextCard = cardsList[nextCardIndex];
-         previousCard = cardsList[previousCardIndex];
-         
-        if (selectedCard.transform.position.x > nextCard.transform.position.x)
+        if (selectedCard == null || cardsList.Count == 0) return;
+
+        float closestDistance = float.MaxValue;
+        int closestIndex = _currentGlobalMovingIndex;
+
+        for (int i = 0; i < cardsList.Count; i++)
         {
-            _currentGlobalMovingIndex += 1;
+            if (cardsList[i] == selectedCard.gameObject) continue;
+
+            float distance = Vector2.Distance(selectedCard.transform.position, cardsList[i].transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestIndex = i;
+            }
         }
-        
-        if (selectedCard.transform.position.x  < previousCard.transform.position.x)
-        {
-            _currentGlobalMovingIndex -= 1;
-        }
-    
-        _currentGlobalMovingIndex = Mathf.Clamp(_currentGlobalMovingIndex, 0, cardsList.Count - 1);
-        Debug.Log(_currentGlobalMovingIndex);
+
+        _currentGlobalMovingIndex = closestIndex;
     }
+
     
     public void ReleaseCard()
     {
@@ -90,7 +89,7 @@ public class CardManager : MonoBehaviour
     
     private void Start()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 8; i++)
         {
             SpawnCard(_k);
             _k++;
@@ -106,12 +105,11 @@ public class CardManager : MonoBehaviour
         card.GetComponent<CardView>().globalIndex = _k;
         cardsList.Add(card);
     }
-}
-
-/*public void AnimateCardOnClick(CardView card)
+    
+    public void AnimateCardOnClick(CardView card)
     {
         card.gameObject.GetComponent<RectTransform>().DOLocalMoveY(finalLocalYPos, 1 / speed);
-        newGroupList.Add(card.gameObject);
+        if(!newGroupList.Contains(card.gameObject)) newGroupList.Add(card.gameObject);
     }
 
     public void MakeAnotherGroup()
@@ -133,4 +131,6 @@ public class CardManager : MonoBehaviour
 
         cardsList = cardsList.Concat(newGroupList).ToList();
         newGroupList.Clear();
-    }*/
+        group.AddComponent<Group>();
+    }
+}

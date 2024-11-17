@@ -203,7 +203,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 134997690}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1753247424}
+        m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
+        m_MethodName: MakeAnotherGroup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &134997690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +425,7 @@ GameObject:
   - component: {fileID: 1592256619}
   - component: {fileID: 1592256622}
   - component: {fileID: 1592256621}
+  - component: {fileID: 1592256623}
   m_Layer: 5
   m_Name: Grp
   m_TagString: Untagged
@@ -457,7 +470,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -10.3
+  m_Spacing: -85.1
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -473,6 +486,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592256618}
   m_CullTransparentMesh: 1
+--- !u!114 &1592256623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592256618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9142894bd7ff7448a7d15e3dfcba6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1753247420
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +563,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 7
-  m_Spacing: 145
+  m_Spacing: 300
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -610,7 +635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1798417761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +648,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24989655f0a6c7a44ac5d398dd85a669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardManager: {fileID: 0}
+  cardSprites:
+  - {fileID: 21300000, guid: d8bb760357d11934496f2e811087556f, type: 3}
+  - {fileID: 21300000, guid: 386982967bed04949be6f3ab14a192cd, type: 3}
+  - {fileID: 21300000, guid: 9e79b6938049fda438d5dde479009c9e, type: 3}
+  - {fileID: 21300000, guid: 44dea8260c9454b4a80ee04990e9980a, type: 3}
+  - {fileID: 21300000, guid: 11fd5e2ff68594749be1acbfdc361b3e, type: 3}
+  - {fileID: 21300000, guid: 352d1c6d146d19a47bbc79f6e0cb6f7e, type: 3}
+  - {fileID: 21300000, guid: b646ccb4e1b82b84d8604eb9ae2f0d75, type: 3}
+  - {fileID: 21300000, guid: 8557f127d0e26574589b351e32d39cc2, type: 3}
+  - {fileID: 21300000, guid: 476b7a319cb56474e9a596282a9f2ca9, type: 3}
+  - {fileID: 21300000, guid: 654cd2c5f717e8e41aef2de468a956f6, type: 3}
+  - {fileID: 21300000, guid: 0a1e1ace22dbd084eb28ea25d4421188, type: 3}
+  - {fileID: 21300000, guid: 25d2c941919bb9f47946840ebe254791, type: 3}
+  - {fileID: 21300000, guid: 01c8435286b94e842a2ea7224ec1e603, type: 3}
+  - {fileID: 21300000, guid: 5a8bd43e5ed543c4f9015cc00f363a62, type: 3}
+  - {fileID: 21300000, guid: 0f5e448223a326f48975a75b86cc10a0, type: 3}
+  - {fileID: 21300000, guid: 067e0f502ddfae447842ec0bca646cd1, type: 3}
+  - {fileID: 21300000, guid: d5cedeae1583a774d9544529e924479a, type: 3}
+  - {fileID: 21300000, guid: d311b11ad5ef7934084ac6ab304e8f01, type: 3}
+  - {fileID: 21300000, guid: cbb69e206a4054740aacc2afee1c4f93, type: 3}
+  - {fileID: 21300000, guid: 324475334b263d84ba8b411db70000a4, type: 3}
+  - {fileID: 21300000, guid: 086fbd4d9df74b04daecd9bb05cf832b, type: 3}
+  - {fileID: 21300000, guid: d85a99df4b844f040a55d20b449b4288, type: 3}
+  - {fileID: 21300000, guid: 8278b59e923c1c241a423b3186d06448, type: 3}
+  - {fileID: 21300000, guid: ec83c88548e1403458f2014fd6232e6d, type: 3}
+  - {fileID: 21300000, guid: 85bd1f9b83bd95e4dbb233f72417dc8f, type: 3}
+  - {fileID: 21300000, guid: cf323f367b7005e46a260a99d0ae3446, type: 3}
+  - {fileID: 21300000, guid: 28b3f039c2e8ca140b39deacda7dde13, type: 3}
+  - {fileID: 21300000, guid: bc330ee0b1dda9847b65f9603ab76155, type: 3}
+  - {fileID: 21300000, guid: 820bb940179b0394bb8d72cfdbef1044, type: 3}
+  - {fileID: 21300000, guid: 531308502dd45924d8ad145d75ed400d, type: 3}
+  - {fileID: 21300000, guid: 18c4b031d2b75e745931e4b08a79efd6, type: 3}
+  - {fileID: 21300000, guid: 7e6b72ba123972f49baec87763ac06a8, type: 3}
+  - {fileID: 21300000, guid: 70b549617f05db7498cca5c70925bb5e, type: 3}
+  - {fileID: 21300000, guid: 0dfe44d2ed3fc5b40b34dfbae0357c9d, type: 3}
+  - {fileID: 21300000, guid: 0161a6bc1161db14a8517c3a7eadb078, type: 3}
+  - {fileID: 21300000, guid: 1cd7cf99ae4d3484188bc66b1426979a, type: 3}
+  - {fileID: 21300000, guid: 70a79b0acd1fbfd47b897ada78462e3f, type: 3}
+  - {fileID: 21300000, guid: 97379f0c7cd2fe3489a8768b783dcb9f, type: 3}
+  - {fileID: 21300000, guid: 17af7a214f7cff340aaa455ff077063a, type: 3}
+  - {fileID: 21300000, guid: e31640e949f91f74e81324fe50b02279, type: 3}
+  - {fileID: 21300000, guid: 6c98ed6ad41f5d9499cbf866146ff113, type: 3}
+  - {fileID: 21300000, guid: 430e81fa06bc9884cb9cac06cb056252, type: 3}
+  - {fileID: 21300000, guid: aa60f60e261b81e41a5b49785924b1bc, type: 3}
+  - {fileID: 21300000, guid: dbf28c5524e8fb24582a415e90afa103, type: 3}
+  - {fileID: 21300000, guid: 4003e2ad146ce8149a7a1bcfcb38bbed, type: 3}
+  - {fileID: 21300000, guid: 48e3166d96eccd9408c9d1818376ab5e, type: 3}
+  - {fileID: 21300000, guid: 36fc6d0ac5b54db4484f7d468bda0ed6, type: 3}
+  - {fileID: 21300000, guid: 1399de50360d0004aa6f0ae1eff30f5f, type: 3}
+  - {fileID: 21300000, guid: dde48346f7ebeb04c82101e16eeb3cb9, type: 3}
+  - {fileID: 21300000, guid: b8331357f128cb345a4e25356ee3b6e0, type: 3}
+  - {fileID: 21300000, guid: 86cafe1d2669f5147931d6d1c7ee0050, type: 3}
+  - {fileID: 21300000, guid: 26667a51a7dc29d4c9dbd8bd497ba78a, type: 3}
+  cardPrefab: {fileID: 6113682413584321028, guid: 9fee2efbc69481f4fae87c32f84d436d, type: 3}
+  initialGroup: {fileID: 1592256618}
   textJson: {fileID: 4900000, guid: e40dce06b9cd7184188506985d3e8710, type: 3}
   cardsList: []
 --- !u!4 &1798417762
@@ -762,6 +843,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1798417762}
   - {fileID: 1935967981}
   - {fileID: 1538855049}
-  - {fileID: 1798417762}

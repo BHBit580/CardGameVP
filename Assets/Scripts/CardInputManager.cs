@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManager : MonoBehaviour , IPointerDownHandler , IPointerUpHandler , IDragHandler 
+public class CardInputManager : MonoBehaviour , IPointerDownHandler , IPointerUpHandler , IDragHandler 
 {
     [SerializeField] private float clickThreshold = 0.2f;
     
@@ -23,22 +23,19 @@ public class InputManager : MonoBehaviour , IPointerDownHandler , IPointerUpHand
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        CardManager.Instance.ReleaseCard();
-        
-        /*if (Time.time - _lastClickTime < clickThreshold)               //If current time minus lastclick
+        if (Time.time - _lastClickTime < clickThreshold)               //If current time minus lastclick
         {
             Debug.Log("It's a click");
             if (eventData.pointerCurrentRaycast.gameObject.GetComponent<CardView>() != null)
             {
                 CardManager.Instance.AnimateCardOnClick(eventData.pointerCurrentRaycast.gameObject.GetComponent<CardView>());
             }
-            CardManager.Instance.ReleaseCard();
         }
         else
         {
             Debug.Log("It's a drag");
-            
-        }*/
+            CardManager.Instance.ReleaseCard();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
