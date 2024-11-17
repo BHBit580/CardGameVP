@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -35,8 +33,8 @@ public class CardInputManager : MonoBehaviourSingleton<CardInputManager>, IPoint
         }
         else
         {
-            Debug.Log("It's a drag");
-            CardManager.Instance.ReleaseCard();
+            if(isOneTimeClick) CardManager.Instance.AnimateCardOnClick(CardManager.Instance.selectedCard);
+            else CardManager.Instance.ReleaseCard();
         }
     }
 

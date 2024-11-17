@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardStartingLoader : MonoBehaviour
 {
-    [SerializeField] private CardManager cardManager;
     [SerializeField] private Sprite[] cardSprites;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject initialGroup;
@@ -42,8 +40,9 @@ public class CardStartingLoader : MonoBehaviour
         foreach (string cardName in cardsList)
         {
             GameObject cardObject = Instantiate(cardPrefab, initialGroup.transform);
+            CardManager.Instance.cardsList.Add(cardObject);
             Sprite cardSprite = FindCardSprite(cardName);
-            cardObject.GetComponent<Image>().sprite = cardSprite;
+            cardObject.GetComponent<CardView>().SetImage(cardSprite);
             cardObject.GetComponent<CardView>().globalIndex = i;
             i++;
         }

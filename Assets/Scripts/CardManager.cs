@@ -10,7 +10,7 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
     [SerializeField] private float finalLocalYPos;
     [SerializeField] private float speed = 4f;
     [SerializeField] private List<Sprite> cardSprites;
-    [SerializeField] private GameObject cardHolder, cardPrefab, canvas;
+    [SerializeField] private GameObject cardHolder, cardPrefab, canvas , makeGroupButton;
 
     public List<GameObject> cardsList;
     [SerializeField] private List<GameObject> newGroupList;
@@ -105,13 +105,14 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         CardInputManager.Instance.isOneTimeClick = true;
         card.gameObject.GetComponent<RectTransform>().DOLocalMoveY(finalLocalYPos, 1 / speed);
         if(!newGroupList.Contains(card.gameObject)) newGroupList.Add(card.gameObject);
+        if(newGroupList.Count >1) makeGroupButton.SetActive(true);
     }
 
     public void MakeAnotherGroup()
     {
         GameObject group = new GameObject("Grp");
         HorizontalLayoutGroup horizontalLayoutGroup = group.AddComponent<HorizontalLayoutGroup>();
-        horizontalLayoutGroup.spacing = -77.5f;
+        horizontalLayoutGroup.spacing = -100f;
         horizontalLayoutGroup.childAlignment = TextAnchor.MiddleCenter;
         horizontalLayoutGroup.childControlHeight = true;
         horizontalLayoutGroup.childControlWidth = true;
@@ -128,5 +129,6 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         newGroupList.Clear();
         group.AddComponent<Group>();
         CardInputManager.Instance.isOneTimeClick = false;
+        makeGroupButton.SetActive(false);
     }
 }
