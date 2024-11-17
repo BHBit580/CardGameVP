@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class CardManager : MonoBehaviour
+public class CardManager : MonoBehaviourSingleton<CardManager>
 {
     [SerializeField] private float finalLocalYPos;
     [SerializeField] private float speed = 4f;
@@ -22,12 +22,6 @@ public class CardManager : MonoBehaviour
     private int _k;
     
     
-    public static CardManager Instance;
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(this);
-    }
 
     public void SetSelectedCard(CardView card)
     {
@@ -108,6 +102,7 @@ public class CardManager : MonoBehaviour
     
     public void AnimateCardOnClick(CardView card)
     {
+        CardInputManager.Instance.isOneTimeClick = true;
         card.gameObject.GetComponent<RectTransform>().DOLocalMoveY(finalLocalYPos, 1 / speed);
         if(!newGroupList.Contains(card.gameObject)) newGroupList.Add(card.gameObject);
     }
@@ -132,5 +127,6 @@ public class CardManager : MonoBehaviour
         cardsList = cardsList.Concat(newGroupList).ToList();
         newGroupList.Clear();
         group.AddComponent<Group>();
+        CardInputManager.Instance.isOneTimeClick = false;
     }
 }
