@@ -28,11 +28,13 @@ public class CardInputManager : MonoBehaviourSingleton<CardInputManager>, IPoint
             isOneTimeClick = true;
             if (eventData.pointerCurrentRaycast.gameObject.GetComponent<CardView>() != null)
             {
+                //Animate when it's a one time click
                 CardManager.Instance.AnimateCardOnClick(eventData.pointerCurrentRaycast.gameObject.GetComponent<CardView>());
             }
         }
         else
         {
+            //If there is already someobject that is UP then after that we will only make up animations
             if(isOneTimeClick) CardManager.Instance.AnimateCardOnClick(CardManager.Instance.selectedCard);
             else CardManager.Instance.ReleaseCard();
         }
@@ -40,6 +42,7 @@ public class CardInputManager : MonoBehaviourSingleton<CardInputManager>, IPoint
 
     public void OnDrag(PointerEventData eventData)
     {
+        //No drag when it's a one time click
         if(isOneTimeClick) return;
         CardManager.Instance.MoveCard(eventData.position.x);
     }

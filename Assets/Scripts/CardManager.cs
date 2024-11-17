@@ -9,20 +9,18 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
 {
     [SerializeField] private float finalLocalYPos;
     [SerializeField] private float speed = 4f;
+    
     [SerializeField] private List<Sprite> cardSprites;
+    [SerializeField] private List<GameObject> newGroupList;
     [SerializeField] private GameObject cardHolder, cardPrefab, canvas , makeGroupButton;
 
     public List<GameObject> cardsList;
-    [SerializeField] private List<GameObject> newGroupList;
-    
     public CardView selectedCard;
 
     
     private int _currentGlobalMovingIndex;
-    private int _k;
     
     
-
     public void SetSelectedCard(CardView card)
     {
         selectedCard = card;
@@ -32,6 +30,7 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
     
     private void UpdateCurrentMovingIndex()
     {
+        //This method finds the closest card near our selected card 
         if (selectedCard == null || cardsList.Count == 0) return;
 
         float closestDistance = float.MaxValue;
@@ -50,14 +49,22 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         }
 
         _currentGlobalMovingIndex = closestIndex;
+        Debug.Log(_currentGlobalMovingIndex);
     }
 
     
     public void ReleaseCard()
     {
         GameObject card = cardsList[_currentGlobalMovingIndex];
+        int siblingIndex = card.transform.GetSiblingIndex();
+
+        if (siblingIndex != card.transform.parent.childCount-1)
+        {
+            //If it's not a last index child
+            selectedCard.transform.SetSiblingIndex(siblingIndex);
+        }
+       
         selectedCard.transform.SetParent(card.transform.parent);
-        selectedCard.transform.SetSiblingIndex(card.transform.GetSiblingIndex());
         UpdateListGlobalIndex();
         selectedCard = null;
     }
@@ -67,9 +74,7 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         if(selectedCard != null) selectedCard.transform.position = new Vector2(xPos, selectedCard.transform.position.y);
         if(selectedCard !=null) UpdateCurrentMovingIndex();
     }
-
     
-
     private void UpdateListGlobalIndex()
     {
         cardsList.Remove(selectedCard.gameObject);
@@ -81,8 +86,10 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         }
     }
     
+    /*
     private void Start()
     {
+        int _k;
         for (int i = 0; i < 8; i++)
         {
             SpawnCard(_k);
@@ -98,7 +105,7 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         card.GetComponent<CardView>().SetImage(cardSprites[Random.Range(0,cardSprites.Count)]);
         card.GetComponent<CardView>().globalIndex = _k;
         cardsList.Add(card);
-    }
+    }*/
     
     public void AnimateCardOnClick(CardView card)
     {
@@ -106,6 +113,7 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         card.gameObject.GetComponent<RectTransform>().DOLocalMoveY(finalLocalYPos, 1 / speed);
         if(!newGroupList.Contains(card.gameObject)) newGroupList.Add(card.gameObject);
         if(newGroupList.Count >1) makeGroupButton.SetActive(true);
+        cardsList.Remove(card.gameObject);
     }
 
     public void MakeAnotherGroup()
@@ -121,10 +129,12 @@ public class CardManager : MonoBehaviourSingleton<CardManager>
         group.transform.SetParent(transform);
         foreach (var obj in newGroupList)
         {
-            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -95);
+            RectTransform rectTransform = obj.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -95);
             obj.transform.SetParent(group.transform);
         }
-
+        
+        
         cardsList = cardsList.Concat(newGroupList).ToList();
         newGroupList.Clear();
         group.AddComponent<Group>();
